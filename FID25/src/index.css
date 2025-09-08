@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Lota Grotesque Bold";
+    src: url("https://db.onlinewebfonts.com/t/e91be499a7294f368abed1b54d55f41a.eot");
+    src: url("https://db.onlinewebfonts.com/t/e91be499a7294f368abed1b54d55f41a.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/e91be499a7294f368abed1b54d55f41a.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/e91be499a7294f368abed1b54d55f41a.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/e91be499a7294f368abed1b54d55f41a.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/e91be499a7294f368abed1b54d55f41a.svg#Lota Grotesque Bold")format("svg");
+}
+
+@theme{
+    --font-lota: "Lota Grotesque Bold", ;
+}
