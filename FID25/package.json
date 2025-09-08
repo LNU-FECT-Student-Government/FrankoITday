@@ -2,10 +2,13 @@
   "name": "fid25",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://LNU-FECT-Student-Government.github.io/FrankoITday/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d dist",
     "lint": "eslint .",
     "preview": "vite preview"
   },
