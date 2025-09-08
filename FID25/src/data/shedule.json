@@ -1,0 +1,37 @@
+[
+  {
+    "time": "10:00-11:30",
+    "content": [
+      "Project Kick-off Meeting",
+      "Discuss project goals, timelines, and team roles."
+    ]
+  },
+  {
+    "time": "11:30-13:00",
+    "content": [
+      "UI/UX Design Review",
+      "Evaluate mockups and user flows for the new application."
+    ]
+  },
+  {
+    "time": "13:00-14:00",
+    "content": [
+      "Lunch Break",
+      "Grab a bite to eat."
+    ]
+  },
+  {
+    "time": "14:00-16:30",
+    "content": [
+      "Backend API Development",
+      "Work on the core logic and endpoints for the user authentication system."
+    ]
+  },
+  {
+    "time": "16:30-17:00",
+    "content": [
+      "Team Stand-up",
+      "Briefly review progress and identify any blockers."
+    ]
+  }
+]
