@@ -15,7 +15,7 @@ function Schedule() {
 
     return (
         <>
-            <section id="schedule" className="flex items-center flex-col ">
+            <section id="schedule" className="flex items-center flex-col py-6">
                 <table className="px-3 mx-2">
                     <tbody>
                         {schedule.map((row: { time: string; content: string[] }, key: Key) => (
