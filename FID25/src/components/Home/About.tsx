@@ -1,5 +1,6 @@
 import ArrowsBG from "../common/svg/ArrowsBG";
 import Masonry from '../common/Masonry';
+import Sponsors from "./Sponsors";
 
 function About() {
     return (
@@ -19,7 +20,7 @@ function About() {
                         </div>
                     </div>
 
-                    <div className="h-0.25 w-[80%] px-5 my-9 bg-yellow-500"></div>
+                    <div className="h-0.25 w-[80%] mx-auto my-9 bg-yellow-500"></div>
 
                     <div className="flex flex-col sm:flex-row items-center sm:items-start">
                         <p className="px-6 top-0 mb-4 sm:max-w-70 text-lg md:mr-10 md:max-w-120 md:text-2xl lg:mr-25">
@@ -45,10 +46,10 @@ function About() {
                     </div>
                 </div>
 
-                <div className="h-0.25 w-[80%] px-5 my-9 bg-yellow-500"></div>
+                <div className="h-0.25 w-[80%] mx-auto my-9 bg-yellow-500"></div>
 
                 <div className="flex flex-col sm:flex-row justify-between items-center">
-                    <p className="text-yellow-500 text-4xl ml-5 text-center font-bold mb-3 mx-auto md:text-5xl sm:text-left lg:text-6xl">
+                    <p className="text-yellow-500 text-4xl sm:ml-5 text-center font-bold mb-3 mx-auto md:text-5xl sm:text-left lg:text-6xl">
                         Supported by<br />
                         Leading Ukrainian<br />
                         IT companies<br />
@@ -56,6 +57,9 @@ function About() {
                     <p className="text-center max-w-100 mr-2 ml-0 sm:max-w-70 sm:ml-5 sm:text-right md:text-2xl md:mr-6 md:ml-5 md:max-w-100 lg:text-3xl">
                         Franko IT Day is the most prominent IT conference of the Ivan Franko National  University of Lviv. It is held annually on the faculty of electronics and computer  technologies to help bring ambitious students and their future employers together.
                     </p>
+                </div>
+                <div>
+                    <Sponsors />
                 </div>
             </section>
         </>
