@@ -15,13 +15,13 @@ function Schedule() {
 
     return (
         <>
-            <section id="schedule" className="flex items-center flex-col py-6">
-                <table className="px-3 mx-2">
+            <section id="schedule" className="flex items-center flex-col py-6 my-5">
+                <table className="px-3 mx-2 ">
                     <tbody>
                         {schedule.map((row: { time: string; content: string[] }, key: Key) => (
                             <tr key={key} >
                                 <TimeCell time={row.time} />
-                                <RegularCell title={row.content[0]} description={row.content[1]} />
+                                <RegularCell title={row.content[0]} description={row.content[1]} time={row.time} />
                             </tr>
                         ))}
                     </tbody>
