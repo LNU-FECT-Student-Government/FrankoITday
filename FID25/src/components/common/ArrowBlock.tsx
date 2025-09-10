@@ -20,7 +20,7 @@ function ArrowBlock({ children, className }: ArrowBlockProps) {
                 stroke-width="6"
             />
             <foreignObject className="flex items-center justify-center w-full h-full relative" width="442" height="175">
-                <div className="h-20 w-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 ">
+                <div className="w-full h-full *:w-1/2 *:h-auto flex items-center justify-center">
                     {children}
                 </div>
             </foreignObject>
