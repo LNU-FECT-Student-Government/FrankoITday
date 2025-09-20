@@ -15,7 +15,17 @@ function Hero() {
         return () => window.removeEventListener('resize', handleResize);
     }, [window.innerHeight, window.innerWidth]);
 
-    const frankoText = "FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY FRANKO IT DAY ";
+    const frankoText = "FRANKO IT DAY ".repeat(20);
+
+    // 🔑 Плавний скрол з відступом 100px
+    const handleScrollToSchedule = () => {
+        const el = document.getElementById("schedule");
+        if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 100; // відступ 100px
+            window.scrollTo({ top: y, behavior: "smooth" });
+        }
+    };
+
     return (
         <>
             <section id="hero" className={`overflow-hidden ${viewport[1] >= 915 ? 'h-screen' : 'h-[915px]'} sm:h-auto xl:h-fit`}>
@@ -38,11 +48,17 @@ function Hero() {
                                 DAY<br />
                             </h1>
                             <div className="flex justify-around items-center md:ml-8 my-16 mb-21 sm:my-6 sm:mb-6  sm:max-w-75 lg:max-w-150">
-                                <button className="bg-black outline-2 outline-yellow-500 px-4 min-w-32 py-2 pb-3 lg:px-8 lg:py-4 lg:pb-3 lg:min-w-50 lg:text-2xl text-md font-bold font-lota hover:-outline-offset-8 hover:outline-10 hover:bg-yellow-500 hover:cursor-pointer hover:text-black transition-all duration-200">Registration</button>
-                                <button className="bg-black outline-2 outline-yellow-500 px-4 min-w-32 py-2 pb-3 lg:px-8 lg:py-4 lg:pb-3 lg:min-w-50 lg:text-2xl text-md font-bold font-lota hover:-outline-offset-8 hover:outline-10 hover:bg-yellow-500 hover:cursor-pointer hover:text-black transition-all duration-200">Schedule</button>
+                                <button className="bg-black outline-2 outline-yellow-500 px-4 min-w-32 py-2 pb-3 lg:px-8 lg:py-4 lg:pb-3 lg:min-w-50 lg:text-2xl text-md font-bold font-lota hover:-outline-offset-8 hover:outline-10 hover:bg-yellow-500 hover:cursor-pointer hover:text-black transition-all duration-200">
+                                    Registration
+                                </button>
+                                <button
+                                    onClick={handleScrollToSchedule}
+                                    className="bg-black outline-2 outline-yellow-500 px-4 min-w-32 py-2 pb-3 lg:px-8 lg:py-4 lg:pb-3 lg:min-w-50 lg:text-2xl text-md font-bold font-lota hover:-outline-offset-8 hover:outline-10 hover:bg-yellow-500 hover:cursor-pointer hover:text-black transition-all duration-200"
+                                >
+                                    Schedule
+                                </button>
                             </div>
                         </div>
-
                     </div>
 
                     <div className="relative h-fit lg:h-full lg:w-screen lg:flex lg:flex-row lg:justify-end">
@@ -63,7 +79,6 @@ function Hero() {
                         <ArrowsShort className="text-yellow-500 w-[110%] scale-100 h-auto mt-2" />
                     </div>
                 </div>
-
             </section>
         </>
     );
