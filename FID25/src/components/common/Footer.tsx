@@ -5,9 +5,9 @@ import TikTokIcon from "./svg/TikTokIcon";
 function Footer() {
     return (
         <footer>
-            <div className="flex flex-col pt-4">
-                <div className="h-0.25 xl:h-0.5 w-[80%] mx-auto my-9 bg-yellow-500 -mb-0"></div>
-                <div className="flex flex-row gap-2 mx-auto">
+            <div className="flex flex-col py-10">
+                <div className="h-0.25 xl:h-0.5 w-[80%] mx-auto bg-yellow-500 -mb-0"></div>
+                <div className="flex flex-row gap-4 mx-auto pt-8">
                     <a
                         href="https://www.instagram.com/electronics_lnu/"
                         target="_blank"

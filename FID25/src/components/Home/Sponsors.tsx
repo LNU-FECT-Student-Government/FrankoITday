@@ -4,7 +4,7 @@ const LogoGrid = lazy(() => import('../common/LogoGrid'))
 
 function Sponsors() {
     return (
-        <section id="sponsors" className="flex flex-col items-center py-8 md:pt-10 lg:pt-15">
+        <section id="sponsors" className="flex flex-col items-center md:pt-10 lg:pt-15">
             <div className="flex flex-col items-center justify-center pl-6">
                 <div className="flex flex-col md:flex-row md:justify-between items-center md:items-start w-screen md:px-1 lg:px-5 xl:px-20 2xl:px-50">
                     {/*<div className="flex flex-col justify-center items-center  mx-10 sm:mx-2 xl:scale-105 2xl:scale-115 2xl:pl-10">
