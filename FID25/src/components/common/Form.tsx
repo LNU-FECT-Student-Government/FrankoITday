@@ -103,10 +103,6 @@ export default function ContactForm() {
 
         setIsSubmitting(true);
 
-        const form: HTMLFormElement = document.createElement('form');
-        form.action = 'https://formsubmit.co/YOUR_EMAIL_HERE';
-        form.method = 'POST';
-        form.style.display = 'none';
 
         const fields: Fields = {
             name: formData.name,
@@ -115,18 +111,14 @@ export default function ContactForm() {
             phone: `+380 ${formData.phone}`, // Add +380 when submitting
         };
 
+        /*
         Object.keys(fields).forEach(key => {
             const input: HTMLInputElement = document.createElement('input');
             input.type = 'hidden';
             input.name = key;
             input.value = fields[key as keyof Fields];
-            form.appendChild(input);
         });
-
-        // Append form to body, submit, then remove
-        document.body.appendChild(form);
-        form.submit();
-        document.body.removeChild(form);
+        */
 
         // Show success message after a delay
         setTimeout(() => {
@@ -137,11 +129,11 @@ export default function ContactForm() {
 
     if (isSubmitted) {
         return (
-            <div className="max-w-lg mx-auto p-6 bg-green-50 border border-green-200 rounded-lg">
+            <div className="max-w-lg mx-auto p-6 ">
                 <div className="text-center">
-                    <div className="text-green-600 text-2xl mb-2">✓</div>
-                    <h3 className="text-lg font-semibold text-green-800 mb-2">Thank you!</h3>
-                    <p className="text-green-700">We will contact you soon.</p>
+                    <div className="text-yellow-500 text-4xl mb-2">✓</div>
+                    <h3 className="text-lg font-bold text-yellow-600 mb-2">Thank you!</h3>
+                    <p className="text-yellow-600">We will contact you soon.</p>
                 </div>
             </div>
         );

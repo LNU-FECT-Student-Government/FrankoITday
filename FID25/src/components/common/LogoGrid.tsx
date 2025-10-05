@@ -25,8 +25,8 @@ const LogoGrid: React.FC<LogoGridProps> = ({ children, columns }) => {
             if (index < childrenArray.length) {
                 rowChildren.push(childrenArray[index]);
             } else {
-                // Add a blank space if the last row isn't full
-                rowChildren.push(null);
+                // Add a transparent placeholder if the last row isn't full
+                rowChildren.push('placeholder');
             }
         }
 
@@ -37,8 +37,8 @@ const LogoGrid: React.FC<LogoGridProps> = ({ children, columns }) => {
             <div key={i} className={rowClasses}>
                 {rowChildren.map((child, index) => (
                     <div key={index} className="flex-1 py-2 shadow-inner">
-                        <ArrowBlock className="w-full h-full flex items-center justify-center">
-                            {child}
+                        <ArrowBlock className={`w-full h-full flex items-center justify-center ${child === 'placeholder' ? 'opacity-0 pointer-events-none' : ''}`}>
+                            {child !== 'placeholder' ? child : null}
                         </ArrowBlock>
                     </div>
                 ))}
