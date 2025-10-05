@@ -104,13 +104,6 @@ export default function ContactForm() {
         setIsSubmitting(true);
 
 
-        const fields: Fields = {
-            name: formData.name,
-            contact: formData.contact,
-            telegram: `@${formData.telegram}`, // Add @ back when submitting
-            phone: `+380 ${formData.phone}`, // Add +380 when submitting
-        };
-
         /*
         Object.keys(fields).forEach(key => {
             const input: HTMLInputElement = document.createElement('input');

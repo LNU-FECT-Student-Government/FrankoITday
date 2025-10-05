@@ -1,5 +1,4 @@
 import { lazy } from "react";
-import Partner from "../common/svg/Partner";
 
 const LogoGrid = lazy(() => import('../common/LogoGrid'))
 
