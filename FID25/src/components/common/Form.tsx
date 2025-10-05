@@ -81,17 +81,6 @@ export default function ContactForm() {
         }
     };
 
-    interface FormData {
-        name: string;
-        contact: string;
-        telegram: string;
-        phone: string;
-    }
-
-    interface Fields extends FormData {
-
-    }
-
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
