@@ -10,7 +10,7 @@ function FormButton() {
                 Registration
             </button>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50 rounded-none">
-                <div className="fixed h-full w-full bg-amber-950/70 inset-0 backdrop-blur-sm" />
+                <div className="fixed h-full w-full bg-black/70 inset-0 backdrop-blur-sm" />
                 <div className="fixed inset-0 w-screen overflow-y-auto p-4">
                     <div className="flex min-h-full items-center justify-center">
                         <DialogPanel className="w-md sm:w-xl md:w-2xl lg:w-3xl relative space-y-4 p-6 bg-black shadow-lg border-yellow-500 border-2">
