@@ -29,10 +29,10 @@ function Hero() {
 
     return (
         <>
-            <section id="hero" className={`overflow-hidden ${viewport[1] >= 915 ? 'h-screen' : 'h-[915px]'} sm:h-auto xl:h-fit`}>
+            <section id="hero" className={`overflow-hidden relative ${viewport[1] >= 915 ? 'h-screen' : 'h-[915px]'} sm:h-auto xl:h-fit`}>
                 <div className="sm:flex sm:flex-row sm:justify-between items-end">
                     <div className="flex flex-col px-1 ">
-                        <p className="hidden sm:absolute sm:block md:text-3xl lg:text-4xl xl:top-20 lg:top-10 -z-100 text-xl opacity-20 font-black scale-150">
+                        <p className="hidden sm:absolute sm:block md:text-3xl lg:text-4xl xl:top-10 lg:top-10 -z-100 text-xl opacity-20 font-black scale-150">
                             {frankoText.split(" ").map((word, index) => (
                                 <span
                                     key={index}

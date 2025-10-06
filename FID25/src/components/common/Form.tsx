@@ -134,9 +134,8 @@ export default function ContactForm() {
                         onChange={handleInputChange}
                         required
                         placeholder="Ivan Franko"
-                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
-                            fieldErrors.name ? 'border-red-500' : 'border-yellow-500'
-                        }`}
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${fieldErrors.name ? 'border-red-500' : 'border-yellow-500'
+                            }`}
                     />
                     {fieldErrors.name && <p className="text-red-400 text-xs mt-1">{fieldErrors.name}</p>}
                 </div>
@@ -156,9 +155,8 @@ export default function ContactForm() {
                             placeholder="__ ___ __ __"
                             required
                             maxLength={12}
-                            className={`w-full pl-14 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
-                                fieldErrors.phone ? 'border-red-500' : 'border-yellow-500'
-                            }`}
+                            className={`w-full pl-14 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${fieldErrors.phone ? 'border-red-500' : 'border-yellow-500'
+                                }`}
                         />
                     </div>
                     <p className="text-gray-400 text-xs mt-1">Format: +380 93 123 90 97</p>
@@ -178,9 +176,8 @@ export default function ContactForm() {
                         onChange={handleInputChange}
                         required
                         placeholder="example@email.com"
-                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
-                            emailError || fieldErrors.email ? 'border-red-500' : 'border-yellow-500'
-                        }`}
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${emailError || fieldErrors.email ? 'border-red-500' : 'border-yellow-500'
+                            }`}
                     />
                     {(emailError || fieldErrors.email) && (
                         <p className="text-red-400 text-xs mt-1">{emailError || fieldErrors.email}</p>
@@ -190,7 +187,7 @@ export default function ContactForm() {
                 {/* Telegram */}
                 <div>
                     <label htmlFor="telegram" className="block text-sm font-medium text-white mb-1">
-                        Telegram Nickname <span className="text-md text-gray-700 font-medium">*</span>
+                        Telegram Nickname
                     </label>
                     <div className="relative">
                         <span className="absolute left-3.5 top-2.5 text-white pointer-events-none">@</span>
@@ -200,9 +197,8 @@ export default function ContactForm() {
                             value={formData.telegram}
                             onChange={handleInputChange}
                             placeholder="username"
-                            className={`w-full pl-7 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
-                                fieldErrors.telegram ? 'border-red-500' : 'border-yellow-500'
-                            }`}
+                            className={`w-full pl-7 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${fieldErrors.telegram ? 'border-red-500' : 'border-yellow-500'
+                                }`}
                         />
                     </div>
                     <p className="text-gray-400 text-xs mt-1">for example: @Xopycc</p>
