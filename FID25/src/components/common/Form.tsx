@@ -215,7 +215,6 @@ export default function ContactForm() {
                         !formData.name ||
                         !formData.email ||
                         !formData.phone ||
-                        !formData.telegram ||
                         isSubmitting ||
                         !!emailError ||
                         formData.phone.replace(/\s/g, '').length !== 9
