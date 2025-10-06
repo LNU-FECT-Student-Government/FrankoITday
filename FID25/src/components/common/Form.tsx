@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'https://frankoitday-backend.onrender.com';
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'https://frankoitday-backend.onrender.com/api';
 
 type FieldErrors = {
     name?: string;
@@ -72,7 +72,7 @@ export default function ContactForm() {
         };
 
         try {
-            const res = await fetch(`${API_BASE}/contact/`, {
+            const res = await fetch(`${API_BASE}/api/contact/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
