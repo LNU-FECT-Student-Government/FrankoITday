@@ -16,7 +16,7 @@ function About() {
                                 rapidly changing environment and challenges. Franko IT Day is always ready to
                                 surprise you with inspiring lectures and informative workshops both online and in
                                 person!</p>
-                            <p className="text-sm sm:text:lg md:text-xl text-yellow-600">November 4, 50 Drahomanova St., Lviv</p>
+                            <p className="text-sm sm:text:lg md:text-xl text-yellow-600">November 6, 50 Drahomanova St., Lviv</p>
                         </div>
                     </div>
 
