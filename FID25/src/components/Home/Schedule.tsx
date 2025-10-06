@@ -15,7 +15,9 @@ function Schedule() {
 
     return (
         <>
-            <section id="schedule" className="flex items-center flex-col py-6 my-5">
+            <section id="schedule" className="flex items-center relative flex-col py-6 my-5">
+                <h2 className="text-3xl font-bold mb-5 text-center z-120">Coming Soon...</h2>
+                <div className="w-full h-[110%] top-0 absolute z-100 bg-gradient-to-t from-black/70 to-black" />
                 <table className="px-3 mx-2 ">
                     <tbody>
                         {schedule.map((row: { time: string; content: string[] }, key: Key) => (

@@ -13,9 +13,9 @@ function Home() {
             <Hero />
             <SectionBar title="About" />
             <About />
+            {/*
             <SectionBar title="Schedule" />
             <Schedule />
-            {/*
             <SectionBar title="Speakers" />
             <Speakers />
             */}
