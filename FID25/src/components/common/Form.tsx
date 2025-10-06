@@ -190,7 +190,7 @@ export default function ContactForm() {
                 {/* Telegram */}
                 <div>
                     <label htmlFor="telegram" className="block text-sm font-medium text-white mb-1">
-                        Telegram Nickname <span className="text-red-500">*</span>
+                        Telegram Nickname <span className="text-md text-gray-700 font-medium">*</span>
                     </label>
                     <div className="relative">
                         <span className="absolute left-3.5 top-2.5 text-white pointer-events-none">@</span>
