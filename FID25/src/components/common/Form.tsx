@@ -200,7 +200,6 @@ export default function ContactForm() {
                             value={formData.telegram}
                             onChange={handleInputChange}
                             placeholder="username"
-                            required
                             className={`w-full pl-7 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
                                 fieldErrors.telegram ? 'border-red-500' : 'border-yellow-500'
                             }`}
