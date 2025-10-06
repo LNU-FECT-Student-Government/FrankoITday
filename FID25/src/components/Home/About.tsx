@@ -54,11 +54,11 @@ function About() {
                         Leading Ukrainian<br />
                         IT companies<br />
                     </p>
-                    <p className="text-center max-w-100 mr-2 ml-0 sm:max-w-70 sm:ml-5 sm:text-right md:text-2xl md:mr-6 md:ml-5 md:max-w-100 lg:text-3xl">
+                    <p className="text-justify max-w-100 mr-2 ml-0 sm:max-w-71 sm:ml-5 md:text-xl md:mr-6 md:ml-15 lg:max-w-100 lg:text-2xl">
                         Franko IT Day is the most prominent IT conference of the Ivan Franko National  University of Lviv. It is held annually on the faculty of electronics and computer  technologies to help bring ambitious students and their future employers together.
                     </p>
                 </div>
-                <div>
+                <div className="pt-10">
                     <Sponsors />
                 </div>
             </section>
