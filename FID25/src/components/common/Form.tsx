@@ -1,112 +1,108 @@
 import { useState } from 'react';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:8000/api';
+
+type FieldErrors = {
+    name?: string;
+    email?: string;
+    phone?: string;
+    telegram?: string;
+    non_field_errors?: string | string[];
+};
+
 export default function ContactForm() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [emailError, setEmailError] = useState('');
+    const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
     const [formData, setFormData] = useState({
         name: '',
-        contact: '',
+        email: '',
         telegram: '',
         phone: '',
     });
 
-    // Email validation regex
-    const validateEmail = (email: string): boolean => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
+    const validateEmail = (email: string): boolean =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    // Phone formatting function
     const formatPhoneNumber = (value: string): string => {
-        // Remove all non-digits
-        const digits = value.replace(/\D/g, '');
-
-        // Limit to 9 digits (Ukrainian phone without country code)
-        const limitedDigits = digits.slice(0, 9);
-
-        // Format: XX XXX XX XX
+        const digits = value.replace(/\D/g, '').slice(0, 9);
         let formatted = '';
-        if (limitedDigits.length > 0) {
-            formatted = limitedDigits.slice(0, 2);
-        }
-        if (limitedDigits.length > 2) {
-            formatted += ' ' + limitedDigits.slice(2, 5);
-        }
-        if (limitedDigits.length > 5) {
-            formatted += ' ' + limitedDigits.slice(5, 7);
-        }
-        if (limitedDigits.length > 7) {
-            formatted += ' ' + limitedDigits.slice(7, 9);
-        }
-
+        if (digits.length > 0) formatted = digits.slice(0, 2);
+        if (digits.length > 2) formatted += ' ' + digits.slice(2, 5);
+        if (digits.length > 5) formatted += ' ' + digits.slice(5, 7);
+        if (digits.length > 7) formatted += ' ' + digits.slice(7, 9);
         return formatted;
     };
 
-    const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+    const handleInputChange = (e: { target: { name: string; value: string } }) => {
         const { name, value } = e.target;
+        setFieldErrors((prev) => ({ ...prev, [name]: undefined, non_field_errors: undefined }));
 
-        // Remove @ if user types it in telegram field
         if (name === 'telegram') {
-            const cleanValue = value.replace(/^@+/, '');
-            setFormData(prev => ({
-                ...prev,
-                [name]: cleanValue
-            }));
-        } else if (name === 'contact') {
-            // Validate email in real-time
-            setFormData(prev => ({
-                ...prev,
-                [name]: value
-            }));
-
-            if (value && !validateEmail(value)) {
-                setEmailError('Please enter a valid email address');
-            } else {
-                setEmailError('');
-            }
+            setFormData((p) => ({ ...p, telegram: value.replace(/^@+/, '') }));
+        } else if (name === 'email') {
+            setFormData((p) => ({ ...p, email: value }));
+            if (value && !validateEmail(value)) setEmailError('Please enter a valid email address');
+            else setEmailError('');
         } else if (name === 'phone') {
-            // Format phone number
-            const formatted = formatPhoneNumber(value);
-            setFormData(prev => ({
-                ...prev,
-                [name]: formatted
-            }));
+            setFormData((p) => ({ ...p, phone: formatPhoneNumber(value) }));
         } else {
-            setFormData(prev => ({
-                ...prev,
-                [name]: value
-            }));
+            setFormData((p) => ({ ...p, [name]: value }));
         }
     };
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        // Final email validation before submit
-        if (!validateEmail(formData.contact)) {
+        if (!validateEmail(formData.email)) {
             setEmailError('Please enter a valid email address');
             return;
         }
 
         setIsSubmitting(true);
+        setFieldErrors({});
 
+        const payload = {
+            name: formData.name,
+            email: formData.email,
+            telegram: `@${formData.telegram}`,
+            phone: `+380 ${formData.phone}`,
+        };
 
-        /*
-        Object.keys(fields).forEach(key => {
-            const input: HTMLInputElement = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = fields[key as keyof Fields];
-        });
-        */
+        try {
+            const res = await fetch(`${API_BASE}/contact/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
 
-        // Show success message after a delay
-        setTimeout(() => {
-            setIsSubmitting(false);
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok || data?.ok === false) {
+                const be = (data && data.errors) || {};
+                const next: FieldErrors = {};
+
+                (['name', 'email', 'phone', 'telegram', 'non_field_errors'] as (keyof FieldErrors)[]).forEach((k) => {
+                    const v = be?.[k];
+                    if (v) next[k] = Array.isArray(v) ? v.join(', ') : String(v);
+                });
+
+                const general = String(next.non_field_errors ?? '');
+                if (!next.email && /already|exists/i.test(general)) next.email = general;
+
+                if (next.email) setEmailError(next.email);
+                setFieldErrors(next);
+                throw new Error('Submit failed');
+            }
+
             setIsSubmitted(true);
-        }, 1000);
+        } catch {
+            //
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     if (isSubmitted) {
@@ -122,104 +118,122 @@ export default function ContactForm() {
     }
 
     return (
-        <>
-            <div className="w-full p-3 bg-black">
-                <h2 className="text-2xl font-bold mb-6 text-white">Contact Form</h2>
+        <div className="w-full p-3 bg-black">
+            <h2 className="text-2xl font-bold mb-6 text-white">Contact Form</h2>
 
-                <div className="space-y-4">
-                    {/* 1. Name */}
-                    <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-white mb-1">
-                            Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            required
-                            placeholder='Ivan Franko'
-                            className="w-full px-3 py-2 border border-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                        />
-                    </div>
-
-                    {/* 2. Phone */}
-                    <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-white mb-1">
-                            Phone <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative">
-                            <span className="absolute left-3 top-2 text-white pointer-events-none font-mono">
-                                +380
-                            </span>
-                            <input
-                                type="text"
-                                id="phone"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleInputChange}
-                                placeholder="__ ___ __ __"
-                                required
-                                maxLength={12}
-                                className="w-full pl-14 pr-3 py-2 border border-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 font-mono"
-                            />
-                        </div>
-                        <p className="text-gray-400 text-xs mt-1">Format: +380 93 123 90 97</p>
-                    </div>
-
-                    {/* 3. Email */}
-                    <div>
-                        <label htmlFor="contact" className="block text-sm font-medium text-white mb-1">
-                            Email <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="email"
-                            id="contact"
-                            name="contact"
-                            value={formData.contact}
-                            onChange={handleInputChange}
-                            required
-                            placeholder="example@email.com"
-                            className={`w-full px-3 py-2 border ${emailError ? 'border-red-500' : 'border-yellow-500'} rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500`}
-                        />
-                        {emailError && (
-                            <p className="text-red-400 text-xs mt-1">{emailError}</p>
-                        )}
-                    </div>
-
-                    {/* 4. Telegram */}
-                    <div>
-                        <label htmlFor="telegram" className="block text-sm font-medium text-white mb-1">
-                            Telegram Nickname <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative">
-                            <span className="absolute left-3 top-2 text-white pointer-events-none">
-                                @
-                            </span>
-                            <input
-                                type="text"
-                                id="telegram"
-                                name="telegram"
-                                value={formData.telegram}
-                                onChange={handleInputChange}
-                                placeholder="username"
-                                required
-                                className="w-full pl-7 pr-3 py-2 border border-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                            />
-                        </div>
-                        <p className="text-gray-400 text-xs mt-1">for example: @Xopycc</p>
-                    </div>
-
-                    <button
-                        onClick={handleSubmit}
-                        disabled={!formData.name || !formData.contact || !formData.phone || !formData.telegram || isSubmitting || !!emailError || formData.phone.replace(/\s/g, '').length !== 9}
-                        className="w-full bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition duration-200 disabled:bg-amber-950 disabled:text-gray-500 disabled:cursor-not-allowed"
-                    >
-                        {isSubmitting ? 'Sending...' : 'Send'}
-                    </button>
+            <div className="space-y-4">
+                {/* Name */}
+                <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-white mb-1">
+                        Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="Ivan Franko"
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
+                            fieldErrors.name ? 'border-red-500' : 'border-yellow-500'
+                        }`}
+                    />
+                    {fieldErrors.name && <p className="text-red-400 text-xs mt-1">{fieldErrors.name}</p>}
                 </div>
+
+                {/* Phone */}
+                <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-white mb-1">
+                        Phone <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                        <span className="absolute left-3 top-2 text-white pointer-events-none font-mono">+380</span>
+                        <input
+                            id="phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            placeholder="__ ___ __ __"
+                            required
+                            maxLength={12}
+                            className={`w-full pl-14 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
+                                fieldErrors.phone ? 'border-red-500' : 'border-yellow-500'
+                            }`}
+                        />
+                    </div>
+                    <p className="text-gray-400 text-xs mt-1">Format: +380 93 123 90 97</p>
+                    {fieldErrors.phone && <p className="text-red-400 text-xs mt-1">{fieldErrors.phone}</p>}
+                </div>
+
+                {/* Email */}
+                <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
+                        Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="example@email.com"
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
+                            emailError || fieldErrors.email ? 'border-red-500' : 'border-yellow-500'
+                        }`}
+                    />
+                    {(emailError || fieldErrors.email) && (
+                        <p className="text-red-400 text-xs mt-1">{emailError || fieldErrors.email}</p>
+                    )}
+                </div>
+
+                {/* Telegram */}
+                <div>
+                    <label htmlFor="telegram" className="block text-sm font-medium text-white mb-1">
+                        Telegram Nickname <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                        <span className="absolute left-3.5 top-2.5 text-white pointer-events-none">@</span>
+                        <input
+                            id="telegram"
+                            name="telegram"
+                            value={formData.telegram}
+                            onChange={handleInputChange}
+                            placeholder="username"
+                            required
+                            className={`w-full pl-7 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${
+                                fieldErrors.telegram ? 'border-red-500' : 'border-yellow-500'
+                            }`}
+                        />
+                    </div>
+                    <p className="text-gray-400 text-xs mt-1">for example: @Xopycc</p>
+                    {fieldErrors.telegram && <p className="text-red-400 text-xs mt-1">{fieldErrors.telegram}</p>}
+                </div>
+
+                <button
+                    onClick={handleSubmit}
+                    disabled={
+                        !formData.name ||
+                        !formData.email ||
+                        !formData.phone ||
+                        !formData.telegram ||
+                        isSubmitting ||
+                        !!emailError ||
+                        formData.phone.replace(/\s/g, '').length !== 9
+                    }
+                    className="w-full bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 disabled:bg-amber-950 disabled:text-gray-500"
+                >
+                    {isSubmitting ? 'Sending...' : 'Send'}
+                </button>
+
+                {fieldErrors.non_field_errors && (
+                    <p className="text-red-400 text-sm mt-2">
+                        {Array.isArray(fieldErrors.non_field_errors)
+                            ? fieldErrors.non_field_errors.join(', ')
+                            : fieldErrors.non_field_errors}
+                    </p>
+                )}
             </div>
-        </>
+        </div>
     );
 }
