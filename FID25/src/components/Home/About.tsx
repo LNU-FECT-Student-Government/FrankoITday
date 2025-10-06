@@ -23,7 +23,7 @@ function About() {
                     <div className="h-0.25 w-[80%] mx-auto my-9 bg-yellow-500"></div>
 
                     <div className="flex flex-col sm:flex-row items-center sm:items-start">
-                        <p className="px-6 top-0 mb-4 sm:max-w-70 text-lg md:mr-10 md:max-w-120 md:text-2xl lg:mr-25">
+                        <p className="px-6 top-0 mb-4 text-justify sm:max-w-72 text-lg md:mr-10 md:max-w-124 md:text-2xl lg:mr-25">
                             Since the very beginning, the conference’s motto was "for students, by students". Our
                             speakers never fail to impress the guests with high-quality knowledge sharing in the
                             form of interactive lectures and workshops about the latest trends in the IT industry.<br /> <br />
