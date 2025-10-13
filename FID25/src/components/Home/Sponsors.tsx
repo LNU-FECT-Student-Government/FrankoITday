@@ -1,8 +1,19 @@
-import { lazy } from "react";
+import { lazy, useEffect, useState } from "react";
 
 const LogoGrid = lazy(() => import('../common/LogoGrid'))
 
 function Sponsors() {
+    const [viewport, setViewport] = useState<[number, number]>([window.innerWidth, window.innerHeight]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setViewport([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [window.innerHeight, window.innerWidth]);
+
     return (
         <section id="sponsors" className="flex flex-col items-center md:pt-10 lg:pt-15">
             <div className="flex flex-col items-center justify-center pl-6">
@@ -16,19 +27,21 @@ function Sponsors() {
 
                 </div>
                 <div className="flex flex-col justify-center items-center md:px-20 md:scale-100 md:mt-5 lg:mt-15 xl:scale-100">
-                    <h1 className="text-5xl text-yellow-500 font-bold -mb-2 xl:text-6xl">Partner</h1>
-                    <LogoGrid columns={1}>
-                        <img src="/sponsors/GL.svg" alt="Epam Logo" className="max-h-20 object-contain" />
-                        <img src="/sponsors/Renesas.svg" alt="Leobit Logo" className="max-h-20 object-contain" />
-                    </LogoGrid>
-                </div>
-                <div className="flex flex-col justify-center items-center md:px-20 md:scale-100 md:mt-5 lg:mt-15 xl:scale-100">
                     <h1 className="text-5xl text-yellow-500 font-bold -mb-2 xl:text-6xl">Premium Partner</h1>
-                    <LogoGrid columns={2}>
+                    <LogoGrid columns={viewport[0] >= 850 ? 2 : 1}>
                         <img src="/sponsors/epam.svg" alt="Epam Logo" className="max-h-20 object-contain" />
                         <img src="/sponsors/leobit.svg" alt="Leobit Logo" className="max-h-20 object-contain" />
                         <img src="/sponsors/appexSoft.svg" alt="AppexSoft Logo" className="max-h-20 object-contain" />
                         <img src="/sponsors/infineon.svg" alt="Infineon Logo" className="max-h-20 object-contain" />
+                        <img src="/sponsors/keenEthics.svg" alt="Infineon Logo" className="max-h-20 object-contain" />
+                    </LogoGrid>
+                </div>
+
+                <div className="flex flex-col justify-center items-center md:px-20 md:scale-100 md:mt-5 lg:mt-15 xl:scale-100">
+                    <h1 className="text-5xl text-yellow-500 font-bold -mb-2 xl:text-6xl">Partner</h1>
+                    <LogoGrid columns={2}>
+                        <img src="/sponsors/GL.svg" alt="Epam Logo" className="max-h-20 object-contain" />
+                        <img src="/sponsors/Renesas.svg" alt="Leobit Logo" className="max-h-20 object-contain" />
                     </LogoGrid>
                 </div>
             </div>
