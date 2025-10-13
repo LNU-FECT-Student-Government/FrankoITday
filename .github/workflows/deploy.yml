@@ -32,10 +32,10 @@ jobs:
           cache: npm
           cache-dependency-path: FID25/package-lock.json
 
-      - name: Install deps
-        run: npm ci
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
 
-      - name: Build
+      - name: Build project
         run: npm run build
 
       - name: Create 404 for SPA
