@@ -27,6 +27,12 @@ function Sponsors() {
 
                 </div>
                 <div className="flex flex-col justify-center items-center md:px-20 md:scale-100 md:mt-5 lg:mt-15 xl:scale-100">
+                    <h1 className="text-5xl text-yellow-500 font-bold -mb-2 xl:text-6xl">General Partner</h1>
+                    <LogoGrid columns={1}>
+                        <img src="/sponsors/softserve.svg" alt="Softserve Logo" className="max-h-20 object-contain" />
+                    </LogoGrid>
+                </div>
+                <div className="flex flex-col justify-center items-center md:px-20 md:scale-100 md:mt-5 lg:mt-15 xl:scale-100">
                     <h1 className="text-5xl text-yellow-500 font-bold -mb-2 xl:text-6xl">Premium Partner</h1>
                     <LogoGrid columns={viewport[0] >= 850 ? 2 : 1}>
                         <img src="/sponsors/epam.svg" alt="Epam Logo" className="max-h-20 object-contain" />
@@ -34,6 +40,7 @@ function Sponsors() {
                         <img src="/sponsors/appexSoft.svg" alt="AppexSoft Logo" className="max-h-20 object-contain" />
                         <img src="/sponsors/infineon.svg" alt="Infineon Logo" className="max-h-20 object-contain" />
                         <img src="/sponsors/keenEthics.svg" alt="Infineon Logo" className="max-h-20 object-contain" />
+                        <img src="/sponsors/nix.svg" alt="nix Logo" className="max-h-20 object-contain" />
                     </LogoGrid>
                 </div>
 
