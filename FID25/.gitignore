@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+Console
+Console.tsx
+FilleSystemEditor.tsx
