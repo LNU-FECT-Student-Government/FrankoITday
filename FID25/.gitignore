@@ -26,3 +26,5 @@ dist-ssr
 Console
 Console.tsx
 FilleSystemEditor.tsx
+App.tsx
+App

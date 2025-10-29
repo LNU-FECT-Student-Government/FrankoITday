@@ -41,6 +41,7 @@ function Sponsors() {
                         <img src="/sponsors/infineon.svg" alt="Infineon Logo" className="max-h-20 object-contain" />
                         <img src="/sponsors/keenEthics.svg" alt="Infineon Logo" className="max-h-20 object-contain" />
                         <img src="/sponsors/nix.svg" alt="nix Logo" className="max-h-20 object-contain" />
+                        <img src="/sponsors/Genesis.svg" alt="Genesis Logo" className="max-h-20 object-contain" />
                     </LogoGrid>
                 </div>
 
@@ -48,7 +49,8 @@ function Sponsors() {
                     <h1 className="text-5xl text-yellow-500 font-bold -mb-2 xl:text-6xl">Partner</h1>
                     <LogoGrid columns={2}>
                         <img src="/sponsors/GL.svg" alt="Epam Logo" className="max-h-20 object-contain" />
-                        <img src="/sponsors/Renesas.svg" alt="Leobit Logo" className="max-h-20 object-contain" />
+                        <img src="/sponsors/Renesas.svg" alt="Renesas Logo" className="max-h-20 object-contain" />
+                        <img src="/sponsors/sitime.svg" alt="SiTime Logo" className="max-h-20 object-contain" />
                     </LogoGrid>
                 </div>
             </div>
