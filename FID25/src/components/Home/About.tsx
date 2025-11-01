@@ -1,6 +1,5 @@
 import ArrowsBG from "../common/svg/ArrowsBG";
 import Masonry from '../common/Masonry';
-import Sponsors from "./Sponsors";
 
 function About() {
     return (
@@ -59,7 +58,6 @@ function About() {
                     </p>
                 </div>
                 <div className="pt-10">
-                    <Sponsors />
                 </div>
             </section>
         </>
