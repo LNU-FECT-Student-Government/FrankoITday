@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 // --- Constants ---
-const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 400;
+const CANVAS_WIDTH = window.innerWidth < 700 ? window.innerWidth - 40 : 600;
+const CANVAS_HEIGHT = window.innerWidth < 700 ? (window.innerWidth - 40) * 0.6 : 400;
 const PADDLE_WIDTH = 20;
 const PADDLE_HEIGHT = 100;
 const BALL_SIZE = 20;
