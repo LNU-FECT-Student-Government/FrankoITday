@@ -3,11 +3,11 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 // --- Constants ---
 const CANVAS_WIDTH = window.innerWidth < 700 ? window.innerWidth - 40 : 600;
 const CANVAS_HEIGHT = window.innerWidth < 700 ? (window.innerWidth - 40) * 0.6 : 400;
-const PADDLE_WIDTH = 20;
-const PADDLE_HEIGHT = 100;
-const BALL_SIZE = 20;
+const PADDLE_WIDTH = window.innerWidth < 700 ? 10 : 15;
+const PADDLE_HEIGHT = window.innerWidth < 700 ? 50 : 80;
+const BALL_SIZE = window.innerWidth < 700 ? 10 : 15;
 const PADDLE_SPEED = 5; // Base speed for movement
-const BALL_START_SPEED = 5;
+const BALL_START_SPEED = window.innerWidth < 700 ? 3 : 5; // Initial ball speed
 const BOT_SPEED = PADDLE_SPEED * 0.7; // Bot speed is 70% of player speed for casual difficulty
 
 // --- Initial States ---
