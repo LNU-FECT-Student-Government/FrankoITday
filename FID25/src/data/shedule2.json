@@ -9,16 +9,18 @@
   {
     "time": "11:30-13:00",
     "content": [
-      "Free Time",
-      "its not trademarked. so its free!"
-    ]
+      "Lunch Break",
+      "Time to refuel!"
+    ],
+    "shared": true
   },
   {
     "time": "17:00-21:00",
     "content": [
       "Closing Ceremony",
       "Grab a bite to eat. Ending will be long one."
-    ]
+    ],
+    "shared": true
   },
   {
     "time": "21:00-28:30",
