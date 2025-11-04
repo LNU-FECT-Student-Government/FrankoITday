@@ -1,34 +1,38 @@
 [
   {
-    "time": "10:00",
-    "content": ["Відкриття", "null"]
-  },
-  {
     "time": "10:30-11:30",
-    "content": ["N-IX", "null"]
+    "content": [
+      "SoftServe Lecture",
+      "Using ChatGPT & OPTO: API, Tokenization, and Applications"
+    ]
   },
   {
-    "time": "11:40-12:40",
-    "content": ["LeoBit", "null"]
+    "time": "11:40-13:20",
+    "content": [
+      "Keen.Ethics Workshop",
+      "Tech Interview: Trainee Fullstack (React + Node.JS)"
+    ]
   },
   {
-    "time": "12:50-13:50",
-    "content": ["LeoBit", "null"]
+    "time": "13:20-14:20",
+    "content": ["N-iX Workshop", "Self-presentation in interviews"]
   },
   {
     "time": "14:00-15:00",
-    "content": ["Обід", "null"]
+    "content": ["Lunch", "Go eat something =)"]
   },
   {
     "time": "15:00-16:30",
-    "content": ["Infineon", "null"]
+    "content": [
+      "SoftServe Workshop",
+      "AI Microservice on GCP. Cloud Run, SQL, Build & Vertex AI (bring your laptop)"
+    ]
   },
   {
-    "time": "16:40-17:40",
-    "content": ["Epam", "null"]
-  },
-  {
-    "time": "17:40-18:10",
-    "content": ["Appexsoft", "null"]
+    "time": "16:40-18:10",
+    "content": [
+      "Appexoft Workshop & Lecture",
+      "AI Evolution: From Chatbots to Agents & IT Growth"
+    ]
   }
 ]

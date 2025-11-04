@@ -308,13 +308,12 @@ export default function WorkshopForm() {
                                                     onClick={() =>
                                                         !disabled && toggleSlot(originalIndex, slot)
                                                     }
-                                                    className={`px-4 py-2 w-fit rounded-full font-medium transition-all ${
-                                                        isBooked
+                                                    className={`px-4 py-2 w-fit rounded-full font-medium transition-all ${isBooked
                                                             ? "bg-gray-600 text-gray-300 cursor-not-allowed"
                                                             : isSelected(originalIndex, slot)
                                                                 ? "bg-yellow-500 text-black outline-8 -outline-offset-8 outline-yellow-500"
                                                                 : "bg-black text-white hover:bg-yellow-400/20"
-                                                    } outline-2 -outline-offset-2 outline-yellow-500`}
+                                                        } outline-2 -outline-offset-2 outline-yellow-500`}
                                                 >
                                                     {slot}
                                                 </button>
@@ -337,7 +336,7 @@ export default function WorkshopForm() {
                             onFileSelect={(file) => {
                                 setCvFile(file);
                             }}
-                            label="Ur CV"
+                            label="Завантажте ваше резюме (CV) у форматі PDF"
                         />
                     </div>
 
