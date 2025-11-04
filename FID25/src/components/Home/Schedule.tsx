@@ -1,35 +1,34 @@
-import { useEffect, useState } from "react";
 // import Pong from "../common/Pong";
-import RegularCell from "./Table/RegularCell";
-import TimeCell from "./Table/TimeCell";
+import { useEffect, useState } from "react";
+import TimeCell from "./Table/TimeCell.tsx";
+import RegularCell from "./Table/RegularCell.tsx";
 
 const schedule1Import = async () => import("../../data/shedule1.json");
 const schedule2Import = async () => import("../../data/shedule2.json");
-const schedule3Import = async () => import("../../data/shedule3.json");
 
-type Row = { time: string; content: string[] };
+type ScheduleRow = {
+    time: string;
+    content: string[];
+};
 
 function Schedule() {
     const [schedules, setSchedules] = useState<{
-        flow1: Row[];
-        flow2: Row[];
-        flow3: Row[];
+        flow1: ScheduleRow[];
+        flow2: ScheduleRow[];
     }>({
         flow1: [],
-        flow2: [],
-        flow3: []
+        flow2: []
     });
 
     const [activeFlow, setActiveFlow] = useState<number>(1);
     const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
     useEffect(() => {
-        Promise.all([schedule1Import(), schedule2Import(), schedule3Import()]).then(
-            ([data1, data2, data3]) => {
+        Promise.all([schedule1Import(), schedule2Import()]).then(
+            ([data1, data2]) => {
                 setSchedules({
                     flow1: data1.default,
-                    flow2: data2.default,
-                    flow3: data3.default
+                    flow2: data2.default
                 });
             }
         );
@@ -43,10 +42,10 @@ function Schedule() {
     };
 
     return (
-        <section id="schedule" className="flex items-center relative flex-col py-6 my-5">
-            {/*<h1 className="text-4xl font-bold">Very Soon!</h1>*/}
-            {/*<p className="text-gray-600 pb-6">play some pong for now</p>*/}
-
+        <section
+            id="schedule"
+            className="flex items-center relative flex-col py-6 my-5"
+        >
             <div className="flex gap-3 mb-6 z-10">
                 <button
                     onClick={() => handleFlowChange(1)}
@@ -72,15 +71,18 @@ function Schedule() {
                 </button>
             </div>
 
-            {/* ЦЕЙ БЛОК — 1в1 як у тебе раніше */}
-            <div className="w-full relative">
+            <div className="w-full relative overflow-hidden">
                 <div
-                    className="flex transition-transform duration-500 ease-in-out"
+                    className={`flex transition-transform duration-500 ease-in-out ${
+                        isAnimating ? "pointer-events-none" : ""
+                    }`}
                     style={{
-                        transform: `translateX(${activeFlow === 1 ? "0%" : "-100%"})`
+                        transform: `translateX(${
+                            activeFlow === 1 ? "0%" : "-100%"
+                        })`
                     }}
                 >
-                    {/* Потік 1 */}
+                    {/* 1 потік */}
                     <div className="w-full flex-shrink-0 px-3">
                         <table className="w-full">
                             <tbody>
@@ -90,7 +92,7 @@ function Schedule() {
                                     <RegularCell
                                         title={row.content[0]}
                                         description={row.content[1]}
-                                        time={row.time}
+                                        time={row.int} //забери це краще зовсім мб ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
                                     />
                                 </tr>
                             ))}
@@ -98,7 +100,7 @@ function Schedule() {
                         </table>
                     </div>
 
-                    {/* Потік 2 */}
+                    {/* 2 потік */}
                     <div className="w-full flex-shrink-0 px-3">
                         <table className="w-full">
                             <tbody>
@@ -107,8 +109,8 @@ function Schedule() {
                                     <TimeCell time={row.time} />
                                     <RegularCell
                                         title={row.content[0]}
-                                        description={row.content[1]}
-                                        time={row.time}
+                                        description={row.content[0]}
+                                        time={row.int}   //забери це краще зовсім мб ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
                                     />
                                 </tr>
                             ))}
@@ -118,30 +120,7 @@ function Schedule() {
                 </div>
             </div>
 
-            {/* ДAdditional activities */}
-            <div className="w-full relative mt-10 px-3">
-                <h2 className="text-2xl font-semibold mb-3 text-yellow-500">
-                    Additional activities
-                </h2>
-                <table className="w-full">
-                    <tbody>
-                    {schedules.flow3.map((row, key) => (
-                        <tr key={key}>
-                            <TimeCell time={row.time} />
-                            <RegularCell
-                                title={row.content[0]}
-                                description={row.content[1]}
-                                time={row.time}
-                            />
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            </div>
-
-            {/*
-      <Pong />
-      */}
+            {/* <Pong /> */}
         </section>
     );
 }
