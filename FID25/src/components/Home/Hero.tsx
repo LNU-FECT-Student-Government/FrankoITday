@@ -50,7 +50,7 @@ function Hero() {
                                 IT<br />
                                 DAY<br />
                             </h1>
-                            <div className="flex justify-around gap-4 items-start sm:items-center md:ml-8 my-16 mb-21 sm:my-6 sm:mb-6  sm:max-w-75 lg:max-w-150">
+                            <div className="flex justify-evenly sm:gap-4 items-start sm:items-center md:ml-8 my-16 mb-21 sm:my-6 sm:mb-6  sm:max-w-75 lg:max-w-150">
                                 <div className="sm:flex sm:flex-row sm:items-center sm:gap-2">
                                     <FromButton />
                                     <div className="w-0.25 sm:w-0 bg-yellow-700 h-6 items-center flex flex-col  justify-center mx-auto" />
