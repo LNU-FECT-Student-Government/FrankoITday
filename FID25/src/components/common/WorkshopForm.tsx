@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FileUpload from "./FileUpload";
 
 
 const API_BASE_URL =
@@ -63,6 +64,7 @@ export default function WorkshopForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [cvFile, setCvFile] = useState<File | null>(null);
 
     // all events that require reservation
     const reservableEvents = SCHEDULE_3.filter((item) => item.reservation);
@@ -120,6 +122,10 @@ export default function WorkshopForm() {
 
         if (!cleanEmail) {
             setErrorMessage("Please enter your email.");
+            return;
+        }
+        if (!cvFile) {
+            setErrorMessage("Please upload your CV.");
             return;
         }
 
@@ -307,13 +313,12 @@ export default function WorkshopForm() {
                                                     onClick={() =>
                                                         !disabled && toggleSlot(originalIndex, slot)
                                                     }
-                                                    className={`px-4 py-2 w-fit rounded-full font-medium transition-all ${
-                                                        isBooked
-                                                            ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-                                                            : isSelected(originalIndex, slot)
-                                                                ? "bg-yellow-500 text-black outline-8 -outline-offset-8 outline-yellow-500"
-                                                                : "bg-black text-white hover:bg-yellow-400/20"
-                                                    } outline-2 -outline-offset-2 outline-yellow-500`}
+                                                    className={`px-4 py-2 w-fit rounded-full font-medium transition-all ${isBooked
+                                                        ? "bg-gray-600 text-gray-300 cursor-not-allowed"
+                                                        : isSelected(originalIndex, slot)
+                                                            ? "bg-yellow-500 text-black outline-8 -outline-offset-8 outline-yellow-500"
+                                                            : "bg-black text-white hover:bg-yellow-400/20"
+                                                        } outline-2 -outline-offset-2 outline-yellow-500`}
                                                 >
                                                     {slot}
                                                 </button>
@@ -328,7 +333,10 @@ export default function WorkshopForm() {
                             There are no events available for reservation.
                         </p>
                     )}
-
+                    {/* ну по хорошому ми мали б розділяти тут все на компоненти але як є вже */}
+                    <div className="py-5">
+                        <FileUpload onFileSelect={ } label="placeholder" />
+                    </div>
                     {/* Submit Button */}
                     <div className="flex justify-center mt-12">
                         <button
