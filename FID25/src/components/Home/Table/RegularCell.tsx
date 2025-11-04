@@ -18,7 +18,7 @@ function RegularCell({ title, description, className }: RegularCellProps) {
             </p>
           </span>
           <span className="block">
-            <p className="text-md xl:text-xl font-bold text-white transition-all duration-75">
+            <p className="text-sm xl:text-lg font-medium text-white transition-all duration-75">
               {description}
             </p>
           </span>

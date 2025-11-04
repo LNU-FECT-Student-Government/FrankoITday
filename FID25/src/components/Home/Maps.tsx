@@ -32,7 +32,7 @@ function Maps() {
                 .animated-grid-bg {
                   background-color: #000;
 
-                  --grid-color: rgba(234, 179, 8, 0.1);
+                  --grid-color: rgba(234, 179, 8, 0.12);
                   --grid-size: 40px;
                   --grid-line-width: 1px;
 
