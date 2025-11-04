@@ -336,7 +336,7 @@ export default function WorkshopForm() {
                             onFileSelect={(file) => {
                                 setCvFile(file);
                             }}
-                            label="Завантажте ваше резюме (CV) у форматі PDF"
+                            label="Upload your CV in PDF format"
                         />
                     </div>
 

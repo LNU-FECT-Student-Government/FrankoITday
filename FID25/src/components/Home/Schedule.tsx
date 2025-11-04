@@ -55,7 +55,7 @@ function Schedule() {
                         : "bg-black text-gray-300 hover:bg-yellow-950"
                         }`}
                 >
-                    1 Потік
+                    1 stream
                 </button>
                 <button
                     onClick={() => handleFlowChange(2)}
@@ -65,7 +65,7 @@ function Schedule() {
                         : "bg-black text-gray-300 hover:bg-yellow-950"
                         }`}
                 >
-                    2 Потік
+                    2 stream
                 </button>
             </div>
 
