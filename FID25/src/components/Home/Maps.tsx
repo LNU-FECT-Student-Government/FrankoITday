@@ -9,8 +9,8 @@ function Maps() {
     const floors = [1, 2, 3, 4];
 
     // CSS класи для кнопок
-    const baseButtonClass = "px-6 py-2 rounded-full transition-all duration-300 outline-2 -outline-offset-2 outline-yellow-500";
-    const activeButtonClass = "bg-yellow-500 text-black outline-10 -outline-offset-10 text-sm";
+    const baseButtonClass = "py-2 px-3 sm:px-6 sm:py-2 rounded-full transition-all duration-300 outline-2 -outline-offset-2 outline-yellow-500 text-[12px] md:text-md lg:text-lg font-medium";
+    const activeButtonClass = "bg-yellow-500 text-black outline-10 -outline-offset-10 ";
     const inactiveButtonClass = "bg-black text-white hover:bg-yellow-950/40 outline-2 -outline-offset-2 outline-yellow-500";
 
     return (
@@ -62,7 +62,7 @@ function Maps() {
                 className="w-full mx-auto overflow-hidden my-8"
             >
                 {/* Навігація поверхами */}
-                <div className="flex justify-center gap-2 md:gap-4 mb-4">
+                <div className="flex justify-center gap-1 md:gap-4 mb-4">
                     {floors.map((floor) => (
                         <button
                             key={floor}
