@@ -10,21 +10,23 @@ const Schedule = lazy(() => import('../Home/Schedule.tsx'))
 
 function Home() {
     return (
-        <>
-            <SectionBar title="Home" />
-            <Hero />
-            <SectionBar title="About" />
-            <About />
-            <Sponsors />
-            <SectionBar title="Schedule" />
-            <Schedule />
-            <SectionBar title="Maps" />
-            <Maps />
-            {/*
+        < >
+            <div className="overflow-y-hidden">
+                <SectionBar title="Home" />
+                <Hero />
+                <SectionBar title="About" />
+                <About />
+                <Sponsors />
+                <SectionBar title="Schedule" />
+                <Schedule />
+                <SectionBar title="Maps" />
+                <Maps />
+                {/*
             <SectionBar title="Speakers" />
             <Speakers />
             */}
-            <Footer />
+                <Footer />
+            </div>
         </>
     );
 }
