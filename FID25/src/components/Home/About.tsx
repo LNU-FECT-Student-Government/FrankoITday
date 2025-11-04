@@ -21,8 +21,8 @@ function About() {
 
                     <div className="h-0.25 w-[80%] mx-auto my-9 bg-yellow-500"></div>
 
-                    <div className="flex flex-col sm:flex-row items-center sm:items-start">
-                        <p className="px-6 top-0 mb-4 text-justify sm:max-w-72 text-md md:mr-10 md:max-w-124 md:text-2xl lg:mr-25">
+                    <div className="flex flex-col md:flex-row items-center md:items-start mx-5">
+                        <p className="pr-3 top-0 mb-4 text-sm text-justify sm:text-lg max-w-100 sm:max-w-130 md:text-xl md:max-w-125">
                             Since the very beginning, the conference’s motto was "for students, by students". Our
                             speakers never fail to impress the guests with high-quality knowledge sharing in the
                             form of interactive lectures and workshops about the latest trends in the IT industry.<br /> <br />
@@ -53,7 +53,7 @@ function About() {
                         Leading Ukrainian<br />
                         IT companies<br />
                     </p>
-                    <p className="text-justify text-sm px-6 max-w-100 mr-2 ml-0 sm:max-w-71 sm:ml-5 md:text-xl md:mr-6 md:ml-15 lg:max-w-100 lg:text-2xl">
+                    <p className="text-justify text-sm md:text-xl px-6 max-w-100 md:max-w-115 mr-2 ml-0 sm:max-w-71 sm:ml-5 md:mr-6 md:ml-15 lg:max-w-100 lg:text-2xl">
                         Franko IT Day is the most prominent IT conference of the Ivan Franko National  University of Lviv. It is held annually on the faculty of electronics and computer  technologies to help bring ambitious students and their future employers together.
                     </p>
                 </div>
