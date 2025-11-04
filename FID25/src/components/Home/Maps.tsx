@@ -83,10 +83,10 @@ function Maps() {
                         transform: `translateX(-${(selectedFloor - 1) * 100}vw)`,
                     }}
                 >
-                    <Floor1 className="w-[60vw] mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
-                    <Floor2 className="w-[60vw] mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
-                    <Floor3 className="w-[60vw] mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
-                    <Floor4 className="w-[60vw] mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
+                    <Floor1 className="w-[80vw] mx-[10vw] lg:w-[60vw] lg:mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
+                    <Floor2 className="w-[80vw] mx-[10vw] lg:w-[60vw] lg:mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
+                    <Floor3 className="w-[80vw] mx-[10vw] lg:w-[60vw] lg:mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
+                    <Floor4 className="w-[80vw] mx-[10vw] lg:w-[60vw] lg:mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
                 </div>
             </section>
         </>
