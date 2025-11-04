@@ -3,7 +3,7 @@ import FileUpload from "./FileUpload";
 
 const API_BASE_URL =
     (import.meta.env.VITE_API_BASE_URL as string | undefined) ??
-    "http://127.0.0.1:8000";
+    "https://frankoitday-backend.onrender.com";
 
 type ScheduleItem = {
     time: string;
@@ -235,7 +235,7 @@ export default function WorkshopForm() {
         <div className="min-h-fit bg-black text-white p-4 md:p-8">
             <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
                 <h1 className="text-4xl md:text-5xl font-bold text-yellow-500 mb-8">
-                    Workshop reservation
+                    Interview
                 </h1>
 
                 <form
