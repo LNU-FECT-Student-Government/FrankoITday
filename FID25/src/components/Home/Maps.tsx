@@ -77,20 +77,16 @@ function Maps() {
                     ))}
                 </div>
 
-                {/* Стрічка (Track): 
-                w-[400%] (оскільки 4 слайди)
-                transition-transform для плавності
-            */}
                 <div
                     className="flex w-[400vw] transition-transform duration-500 ease-in-out py-5 animated-grid-bg "
                     style={{
                         transform: `translateX(-${(selectedFloor - 1) * 100}vw)`,
                     }}
                 >
-                    <Floor1 className="w-[40vw] mx-[30vw] flex-shrink-0 h-auto" />
-                    <Floor2 className="w-[40vw] mx-[30vw] flex-shrink-0 h-auto" />
-                    <Floor3 className="w-[40vw] mx-[30vw] flex-shrink-0 h-auto" />
-                    <Floor4 className="w-[40vw] mx-[30vw] flex-shrink-0 h-auto" />
+                    <Floor1 className="w-[60vw] mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
+                    <Floor2 className="w-[60vw] mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
+                    <Floor3 className="w-[60vw] mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
+                    <Floor4 className="w-[60vw] mx-[20vw] flex-shrink-0 max-h-[60vh] min-h-[40vh]" />
                 </div>
             </section>
         </>
