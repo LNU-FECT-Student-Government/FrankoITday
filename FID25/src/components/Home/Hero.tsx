@@ -50,10 +50,12 @@ function Hero() {
                                 IT<br />
                                 DAY<br />
                             </h1>
-                            <div className="flex justify-around gap-4 items-center md:ml-8 my-16 mb-21 sm:my-6 sm:mb-6  sm:max-w-75 lg:max-w-150">
-
-                                <FromButton />
-                                <WorkshopButton />
+                            <div className="flex justify-around gap-4 items-start sm:items-center md:ml-8 my-16 mb-21 sm:my-6 sm:mb-6  sm:max-w-75 lg:max-w-150">
+                                <div className="sm:flex sm:flex-row sm:items-center sm:gap-2">
+                                    <FromButton />
+                                    <div className="w-0.25 sm:w-0 bg-yellow-700 h-6 items-center flex flex-col  justify-center mx-auto" />
+                                    <WorkshopButton />
+                                </div>
                                 <button
                                     onClick={handleScrollToSchedule}
                                     className="bg-black outline-2 outline-yellow-500 px-4 min-w-32 py-2 pb-3 lg:px-8 lg:py-4 lg:pb-3 lg:min-w-50 lg:text-2xl text-md font-bold font-lota hover:-outline-offset-8 hover:outline-10 hover:bg-yellow-500 hover:cursor-pointer hover:text-black transition-all duration-200"
