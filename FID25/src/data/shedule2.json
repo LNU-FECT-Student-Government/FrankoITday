@@ -1,39 +1,34 @@
 [
   {
-    "time": "10:00-11:30",
-    "content": [
-      "Start of the day",
-      "better watch your step not to start it from wrong leg (rhyme intended)"
-    ]
+    "time": "10:00",
+    "content": ["Відкриття", "null"]
   },
   {
-    "time": "11:30-13:00",
-    "content": [
-      "Lunch Break",
-      "Time to refuel!"
-    ],
-    "shared": true
+    "time": "10:30-11:30",
+    "content": ["SoftServe", "null"]
   },
   {
-    "time": "17:00-21:00",
-    "content": [
-      "Closing Ceremony",
-      "Grab a bite to eat. Ending will be long one."
-    ],
-    "shared": true
+    "time": "11:40-12:40",
+    "content": ["AppexSoft", "null"]
   },
   {
-    "time": "21:00-28:30",
-    "content": [
-      "$ometh1ng's wr0ng",
-      "bUT. You can't Tel. l what."
-    ]
+    "time": "12:50-13:50",
+    "content": ["N-IX", "null"]
   },
   {
-    "time": "???-∞",
-    "content": [
-      "Y%o__u St@R rT1n G fetT1nG #Diz$y",
-      "we have a great time, don't we? we have a great time, don't we?"
-    ]
+    "time": "14:00-15:00",
+    "content": ["Обід", "null"]
+  },
+  {
+    "time": "15:00-16:30",
+    "content": ["KeenEthics", "null"]
+  },
+  {
+    "time": "16:40-18:10",
+    "content": ["SoftServe", "null"]
+  },
+  {
+    "time": "18:10-кінець",
+    "content": ["Insiders", "null"]
   }
 ]
