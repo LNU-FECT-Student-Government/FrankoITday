@@ -1,130 +1,345 @@
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
-import { useState } from 'react';
-import MiniSchedule from './MiniSchedule';
-import ScheduleIcon from './svg/ScheduleIcon';
+import { useState, useEffect } from "react";
 
 
-const schedule1Import = async () => import("../../data/shedule1.json");
-const schedule2Import = async () => import("../../data/shedule2.json");
-const SCHEDULE_1: { time: string; content: string[] }[] = (await schedule1Import()).default;
-const SCHEDULE_2: { time: string; content: string[] }[] = (await schedule2Import()).default;
+const API_BASE_URL =
+    (import.meta.env.VITE_API_BASE_URL as string | undefined) ??
+    "https://frankoitday-backend.onrender.com";
+
+type ScheduleItem = {
+    time: string;
+    content: string[];
+    reservation?: boolean;
+    slotMinutes?: number;
+};
+
+const schedule3Import = async () => import("../../data/shedule3.json");
+const SCHEDULE_3: ScheduleItem[] = (await schedule3Import()).default;
+
+// ===== time slot utilities =====
+
+function parseTimeToMinutes(time: string): number {
+    const [h, m] = time.split(":");
+    const hours = parseInt(h, 10) || 0;
+    const minutes = m ? parseInt(m, 10) || 0 : 0;
+    return hours * 60 + minutes;
+}
+
+function formatMinutesToTime(totalMinutes: number): string {
+    const h = Math.floor(totalMinutes / 60)
+        .toString()
+        .padStart(2, "0");
+    const m = (totalMinutes % 60).toString().padStart(2, "0");
+    return `${h}:${m}`;
+}
+
+function getTimeSlots(range: string, slotMinutes: number): string[] {
+    const [startStr, endStr] = range.split("-");
+    if (!endStr) return [range];
+
+    // if the end is not a concrete time (like "end" / "кінець") – show as is
+    const endLower = endStr.toLowerCase();
+    if (endLower.includes("кінець") || endLower.includes("end")) return [range];
+
+    const start = parseTimeToMinutes(startStr);
+    const end = parseTimeToMinutes(endStr);
+    const slots: string[] = [];
+
+    for (let t = start; t + slotMinutes <= end; t += slotMinutes) {
+        const from = formatMinutesToTime(t);
+        const to = formatMinutesToTime(t + slotMinutes);
+        slots.push(`${from}-${to}`);
+    }
+
+    return slots;
+}
 
 export default function WorkshopForm() {
-    const [email, setEmail] = useState('');
-    const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
+    const [email, setEmail] = useState("");
+    // for EACH event – its own selected slot (key – index in SCHEDULE_3)
+    const [selectedSlots, setSelectedSlots] = useState<
+        Record<number, string | null>
+    >({});
 
-    const toggleCheck = (streamIndex: number, itemIndex: number) => {
-        const key = `${streamIndex}-${itemIndex}`;
-        setCheckedItems(prev => {
-            const next = new Set(prev);
-            if (next.has(key)) {
-                next.delete(key);
-            } else {
-                next.add(key);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    // all events that require reservation
+    const reservableEvents = SCHEDULE_3.filter((item) => item.reservation);
+
+    // from DB: which slots are booked
+    const [bookedSlots, setBookedSlots] = useState<Record<string, string[]>>({});
+
+    useEffect(() => {
+        const loadBookedSlots = async () => {
+            try {
+                const res = await fetch(
+                    `${API_BASE_URL}/api/workshop-reservations/slots/`
+                );
+                if (!res.ok) return;
+
+                const data: { workshop_title: string; slot: string }[] =
+                    await res.json();
+
+                const grouped: Record<string, string[]> = {};
+                data.forEach((item) => {
+                    if (!grouped[item.workshop_title]) {
+                        grouped[item.workshop_title] = [];
+                    }
+                    grouped[item.workshop_title].push(item.slot);
+                });
+
+                setBookedSlots(grouped);
+            } catch {
+                // silently ignore, no console spam
             }
-            return next;
+        };
+
+        loadBookedSlots();
+    }, []);
+
+    const toggleSlot = (eventIndex: number, slot: string) => {
+        setSelectedSlots((prev) => {
+            const current = prev[eventIndex] ?? null;
+            return {
+                ...prev,
+                // clicking the same slot again will unselect it
+                [eventIndex]: current === slot ? null : slot,
+            };
         });
     };
 
-    const isChecked = (streamIndex: number, itemIndex: number) => {
-        return checkedItems.has(`${streamIndex}-${itemIndex}`);
+    const isSelected = (eventIndex: number, slot: string) =>
+        selectedSlots[eventIndex] === slot;
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setErrorMessage(null);
+
+        const cleanEmail = email.trim();
+
+        if (!cleanEmail) {
+            setErrorMessage("Please enter your email.");
+            return;
+        }
+
+        // build payload for backend
+        const reservationsPayload = reservableEvents.flatMap((event) => {
+            const originalIndex = SCHEDULE_3.indexOf(event);
+            const slot = selectedSlots[originalIndex];
+
+            if (!slot) return [];
+            return [
+                {
+                    workshop_title: event.content[0],
+                    slot,
+                },
+            ];
+        });
+
+        if (reservationsPayload.length === 0) {
+            setErrorMessage("Please choose at least one time slot.");
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            const res = await fetch(`${API_BASE_URL}/api/workshop-reservations/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: cleanEmail,
+                    reservations: reservationsPayload,
+                }),
+            });
+
+            let data: any = {};
+            try {
+                data = await res.json();
+            } catch {
+                // no body
+            }
+
+            if (!res.ok || data.ok === false) {
+                const errors = data?.errors || {};
+                let msg: string | string[] | undefined =
+                    errors.email ||
+                    errors.reservations ||
+                    errors.non_field_errors ||
+                    data.detail;
+
+                if (Array.isArray(msg)) {
+                    msg = msg.join(" ");
+                }
+
+                setErrorMessage(
+                    msg ||
+                    "Failed to send reservation. Please check your data and try again."
+                );
+                return;
+            }
+
+
+            setBookedSlots((prev) => {
+                const updated: Record<string, string[]> = { ...prev };
+
+                reservationsPayload.forEach(({ workshop_title, slot }) => {
+                    const currentList = updated[workshop_title]
+                        ? [...updated[workshop_title]]
+                        : [];
+                    if (!currentList.includes(slot)) {
+                        currentList.push(slot);
+                    }
+                    updated[workshop_title] = currentList;
+                });
+
+                return updated;
+            });
+
+            // reset selection so no slot stays highlighted as "selected"
+            setSelectedSlots({});
+            // you can also clear email if you want
+            // setEmail("");
+
+
+            setIsSubmitted(true);
+        } catch (err) {
+            console.error(err);
+            setErrorMessage("Network error. Please try again later.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
+
+    if (isSubmitted) {
+        return (
+            <div className="max-w-lg mx-auto p-6 ">
+                <div className="text-center">
+                    <div className="text-yellow-500 text-4xl mb-2">✓</div>
+                    <h3 className="text-lg font-bold text-yellow-600 mb-2">
+                        Thank you!
+                    </h3>
+                    <p className="text-yellow-600">
+                        Your reservation has been saved. We will see you at the workshop!
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-fit bg-black text-white p-4 md:p-8">
-            <div className="max-w-6xl mx-auto">
-                {/* Email Input Section */}
-                <div className="mb-8 max-w-xl">
-                    <label className="block text-sm mb-2">email</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-transparent border-2 border-yellow-500 px-4 py-3 text-white focus:outline-none focus:border-yellow-400"
-                        placeholder="your@email.com"
-                    />
-                    <p className="text-gray-400 text-xs mt-2">
-                        this email is used to check if you are already registered. If you haven't registered yet go to registration form
-                    </p>
-                </div>
+            <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
+                <h1 className="text-4xl md:text-5xl font-bold text-yellow-500 mb-8">
+                    Workshop reservation
+                </h1>
 
-                {/* Emoji Icon */}
-                <div className="flex justify-end mb-6">
-                    <Popover>
-                        <PopoverButton className="bg-yellow-500 rounded-full w-12 h-12 flex items-center justify-center text-2xl z-100">
-                            <ScheduleIcon props={{ width: 24, height: 24 }} />
-                        </PopoverButton>
-                        <PopoverPanel
-                            transition
-                            anchor="bottom end"
-                            className="rounded-xl bg-white/5 text-sm/6 transition duration-200 ease-in-out [--anchor-gap:--spacing(5)] data-closed:-translate-y-1 data-closed:opacity-0 absolute"
-                        >
-                            <div className="p-0 ">
-                                <MiniSchedule schedule1={SCHEDULE_1} schedule2={SCHEDULE_2} />
-                            </div>
-                        </PopoverPanel>
-                    </Popover>
-
-                </div>
-
-                {/* Schedules Side by Side */}
-                <div className="relative">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                        {/* Stream 1 */}
-                        <div>
-                            <h2 className="text-xl text-right pr-4 font-bold mb-6">1 Stream</h2>
-
-                            <div className="flex flex-row md:flex-col items-end flex-wrap gap-2">
-                                {SCHEDULE_1.map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-2">
-                                        <span className="hidden md:inline text-white">{item.content[0]}</span>
-                                        <button
-                                            onClick={() => toggleCheck(1, idx)}
-                                            className={`px-4 py-2 w-fit rounded-full font-medium transition-all ${isChecked(1, idx)
-                                                ? 'bg-yellow-500 text-black outline-8 -outline-offset-8 outline-yellow-500'
-                                                : 'bg-black text-white hover:bg-yellow-400/20'
-                                                } outline-2 -outline-offset-2 outline-yellow-500`}
-                                        >
-                                            {item.time}
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Vertical Line */}
-                        <div className="hidden md:block absolute left-1/2 top-16 bottom-0 w-0.5 bg-yellow-500 -translate-x-1/2"></div>
-
-                        {/* Stream 2 */}
-                        <div>
-                            <h2 className="text-xl pl-4 font-bold mb-6">2 Stream</h2>
-
-                            <div className="flex flex-row md:flex-col flex-wrap gap-2 ">
-                                {SCHEDULE_2.map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-2">
-                                        <button
-                                            onClick={() => toggleCheck(2, idx)}
-                                            className={`min-w-30 px-4 py-2 w-fit rounded-full font-medium transition-all ${isChecked(2, idx)
-                                                ? 'bg-yellow-500 text-black outline-8 -outline-offset-8 outline-yellow-500'
-                                                : 'bg-black text-white hover:bg-yellow-400/20'
-                                                } outline-2 -outline-offset-2 outline-yellow-500`}
-                                        >
-                                            {item.time}
-                                        </button>
-                                        <span className="hidden md:inline text-white">{item.content[0]}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                <form
+                    onSubmit={handleSubmit}
+                    className="w-full flex flex-col items-center"
+                >
+                    {/* Email Input */}
+                    <div className="mb-8 w-full max-w-md text-left">
+                        <label className="block text-sm mb-2">Email</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full bg-transparent border-2 border-yellow-500 px-4 py-3 text-white focus:outline-none focus:border-yellow-400"
+                            placeholder="your@email.com"
+                        />
+                        <p className="text-gray-400 text-xs mt-2">
+                            This email is used to check if you are already registered. If you
+                            have not registered yet, please fill in the registration form first.
+                        </p>
                     </div>
-                </div>
 
-                {/* Register Button */}
-                <div className="flex justify-center mt-12">
-                    <button className="border-2 border-yellow-500 px-8 py-2 text-yellow-500 hover:bg-yellow-500 hover:text-black transition-colors">
-                        send
-                    </button>
-                </div>
+                    {/* Errors */}
+                    {errorMessage && (
+                        <p className="text-red-400 text-sm mb-4">{errorMessage}</p>
+                    )}
+
+                    {/* Automatically render ALL events with reservation=true */}
+                    {reservableEvents.length > 0 ? (
+                        reservableEvents.map((event, index) => {
+                            const slots =
+                                event.slotMinutes && event.time
+                                    ? getTimeSlots(event.time, event.slotMinutes)
+                                    : [event.time];
+
+                            const originalIndex = SCHEDULE_3.indexOf(event);
+                            const title = event.content[0];
+
+                            return (
+                                <div
+                                    key={index}
+                                    className="mt-8 w-full max-w-lg border-t border-yellow-700 pt-6"
+                                >
+                                    <h2 className="text-2xl font-bold mb-3 text-yellow-500">
+                                        {title}
+                                    </h2>
+
+                                    <p className="text-gray-300 mb-1">
+                                        Time:{" "}
+                                        <span className="font-semibold">{event.time}</span>
+                                    </p>
+                                    <p className="text-gray-300 mb-4">
+                                        Reservation required:{" "}
+                                        <span className="font-semibold">
+                                            {event.reservation ? "yes" : "no"}
+                                        </span>
+                                    </p>
+
+                                    <div className="flex flex-wrap justify-center gap-2">
+                                        {slots.map((slot) => {
+                                            const isBooked =
+                                                bookedSlots[title]?.includes(slot) ?? false;
+                                            const disabled = isBooked || isSubmitting;
+
+                                            return (
+                                                <button
+                                                    key={`${title}-${slot}`}
+                                                    type="button"
+                                                    disabled={disabled}
+                                                    onClick={() =>
+                                                        !disabled && toggleSlot(originalIndex, slot)
+                                                    }
+                                                    className={`px-4 py-2 w-fit rounded-full font-medium transition-all ${
+                                                        isBooked
+                                                            ? "bg-gray-600 text-gray-300 cursor-not-allowed"
+                                                            : isSelected(originalIndex, slot)
+                                                                ? "bg-yellow-500 text-black outline-8 -outline-offset-8 outline-yellow-500"
+                                                                : "bg-black text-white hover:bg-yellow-400/20"
+                                                    } outline-2 -outline-offset-2 outline-yellow-500`}
+                                                >
+                                                    {slot}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <p className="text-gray-400 mt-6">
+                            There are no events available for reservation.
+                        </p>
+                    )}
+
+                    {/* Submit Button */}
+                    <div className="flex justify-center mt-12">
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="border-2 border-yellow-500 px-8 py-2 text-yellow-500 font-bold transition-colors hover:bg-yellow-500 hover:text-black disabled:opacity-60 disabled:cursor-not-allowed"
+                        >
+                            {isSubmitting ? "Sending..." : "Send"}
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     );

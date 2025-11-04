@@ -3,9 +3,9 @@ import ArrowsLong from "../common/svg/ArrowsLong.tsx";
 import ArrowsShort from "../common/svg/ArrowsShort.tsx";
 import { useEffect, useState } from "react";
 import FromButton from "../common/FromButton.tsx";
-{/* 
+
 import WorkshopButton from "../common/WorkshopButton.tsx";
-*/}
+
 function Hero() {
     const [viewport, setViewport] = useState<[number, number]>([window.innerWidth, window.innerHeight]);
 
@@ -53,9 +53,7 @@ function Hero() {
                             <div className="flex justify-around gap-4 items-center md:ml-8 my-16 mb-21 sm:my-6 sm:mb-6  sm:max-w-75 lg:max-w-150">
 
                                 <FromButton />
-                                {/* Ось ця кнопка. Не забудь закоментити назад.
                                 <WorkshopButton />
-                                 */}
                                 <button
                                     onClick={handleScrollToSchedule}
                                     className="bg-black outline-2 outline-yellow-500 px-4 min-w-32 py-2 pb-3 lg:px-8 lg:py-4 lg:pb-3 lg:min-w-50 lg:text-2xl text-md font-bold font-lota hover:-outline-offset-8 hover:outline-10 hover:bg-yellow-500 hover:cursor-pointer hover:text-black transition-all duration-200"

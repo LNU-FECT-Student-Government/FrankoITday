@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [react(), tailwindcss()],
     server: {
         host: true,
-        allowedHosts: ['1fed83a30185.ngrok-free.app'],
+        allowedHosts: ['frankoitday-backend.onrender.com'],
     },
     base: '/',
 })

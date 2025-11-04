@@ -1,0 +1,18 @@
+[
+  {
+    "time": "11:00-17:00",
+    "content": ["IT-ярмарка", ""],
+    "reservation": false
+  },
+  {
+    "time": "14:00-19-00",
+    "content": ["Їжа", ""],
+    "slotMinutes": 30
+  },
+  {
+    "time": "15:00-17:00",
+    "content": ["Softserv Interview", ""],
+    "reservation": true,
+    "slotMinutes": 15
+  }
+]
