@@ -50,22 +50,20 @@ function Schedule() {
                 <button
                     onClick={() => handleFlowChange(1)}
                     disabled={activeFlow === 1}
-                    className={`px-6 py-2 border-2 border-yellow-500 font-semibold transition-all ${
-                        activeFlow === 1
+                    className={`px-6 py-2 border-2 border-yellow-500 font-semibold transition-all ${activeFlow === 1
                             ? "bg-yellow-500 text-black cursor-default"
                             : "bg-black text-gray-300 hover:bg-yellow-950"
-                    }`}
+                        }`}
                 >
                     1 Потік
                 </button>
                 <button
                     onClick={() => handleFlowChange(2)}
                     disabled={activeFlow === 2}
-                    className={`px-6 py-2 border-2 border-yellow-500 font-semibold transition-all ${
-                        activeFlow === 2
+                    className={`px-6 py-2 border-2 border-yellow-500 font-semibold transition-all ${activeFlow === 2
                             ? "bg-yellow-500 text-black cursor-default"
                             : "bg-black text-gray-300 hover:bg-yellow-950"
-                    }`}
+                        }`}
                 >
                     2 Потік
                 </button>
@@ -73,29 +71,27 @@ function Schedule() {
 
             <div className="w-full relative overflow-hidden">
                 <div
-                    className={`flex transition-transform duration-500 ease-in-out ${
-                        isAnimating ? "pointer-events-none" : ""
-                    }`}
+                    className={`flex transition-transform duration-500 ease-in-out ${isAnimating ? "pointer-events-none" : ""
+                        }`}
                     style={{
-                        transform: `translateX(${
-                            activeFlow === 1 ? "0%" : "-100%"
-                        })`
+                        transform: `translateX(${activeFlow === 1 ? "0%" : "-100%"
+                            })`
                     }}
                 >
                     {/* 1 потік */}
                     <div className="w-full flex-shrink-0 px-3">
                         <table className="w-full">
                             <tbody>
-                            {schedules.flow1.map((row, key) => (
-                                <tr key={key}>
-                                    <TimeCell time={row.time} />
-                                    <RegularCell
-                                        title={row.content[0]}
-                                        description={row.content[1]}
-                                        time={row.int} //забери це краще зовсім мб ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-                                    />
-                                </tr>
-                            ))}
+                                {schedules.flow1.map((row, key) => (
+                                    <tr key={key}>
+                                        <TimeCell time={row.time} />
+                                        <RegularCell
+                                            title={row.content[0]}
+                                            description={row.content[1]}
+
+                                        />
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
@@ -104,16 +100,15 @@ function Schedule() {
                     <div className="w-full flex-shrink-0 px-3">
                         <table className="w-full">
                             <tbody>
-                            {schedules.flow2.map((row, key) => (
-                                <tr key={key}>
-                                    <TimeCell time={row.time} />
-                                    <RegularCell
-                                        title={row.content[0]}
-                                        description={row.content[0]}
-                                        time={row.int}   //забери це краще зовсім мб ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-                                    />
-                                </tr>
-                            ))}
+                                {schedules.flow2.map((row, key) => (
+                                    <tr key={key}>
+                                        <TimeCell time={row.time} />
+                                        <RegularCell
+                                            title={row.content[0]}
+                                            description={row.content[0]}
+                                        />
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
