@@ -87,10 +87,10 @@ function Maps() {
                         transform: `translateX(-${(selectedFloor - 1) * 100}vw)`,
                     }}
                 >
-                    <Floor1 className="w-[40vw] mx-[30vw] flex-shrink-0 h-fit" />
-                    <Floor2 className="w-[40vw] mx-[30vw] flex-shrink-0 h-fit" />
-                    <Floor3 className="w-[40vw] mx-[30vw] flex-shrink-0 h-fit" />
-                    <Floor4 className="w-[40vw] mx-[30vw] flex-shrink-0 h-fit" />
+                    <Floor1 className="w-[40vw] mx-[30vw] flex-shrink-0 h-auto" />
+                    <Floor2 className="w-[40vw] mx-[30vw] flex-shrink-0 h-auto" />
+                    <Floor3 className="w-[40vw] mx-[30vw] flex-shrink-0 h-auto" />
+                    <Floor4 className="w-[40vw] mx-[30vw] flex-shrink-0 h-auto" />
                 </div>
             </section>
         </>
