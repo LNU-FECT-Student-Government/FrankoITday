@@ -1,0 +1,1 @@
+const e=[{time:"11:00-17:00",content:["IT-ярмарка",""],reservation:!1},{time:"14:00-19-00",content:["Їжа",""],slotMinutes:30},{time:"15:00-17:00",content:["SoftServe Interview",""],reservation:!0,slotMinutes:20}];export{e as default};
