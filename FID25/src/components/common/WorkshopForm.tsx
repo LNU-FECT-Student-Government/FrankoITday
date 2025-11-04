@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import FileUpload from "./FileUpload";
 
-
 const API_BASE_URL =
     (import.meta.env.VITE_API_BASE_URL as string | undefined) ??
-    "https://frankoitday-backend.onrender.com";
+    "http://127.0.0.1:8000";
 
 type ScheduleItem = {
     time: string;
@@ -150,15 +149,14 @@ export default function WorkshopForm() {
 
         setIsSubmitting(true);
         try {
+            const formData = new FormData();
+            formData.append("email", cleanEmail);
+            formData.append("reservations", JSON.stringify(reservationsPayload));
+            formData.append("cv", cvFile);
+
             const res = await fetch(`${API_BASE_URL}/api/workshop-reservations/`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: cleanEmail,
-                    reservations: reservationsPayload,
-                }),
+                body: formData,
             });
 
             let data: any = {};
@@ -187,7 +185,6 @@ export default function WorkshopForm() {
                 return;
             }
 
-
             setBookedSlots((prev) => {
                 const updated: Record<string, string[]> = { ...prev };
 
@@ -206,9 +203,8 @@ export default function WorkshopForm() {
 
             // reset selection so no slot stays highlighted as "selected"
             setSelectedSlots({});
-            // you can also clear email if you want
-            // setEmail("");
-
+            setCvFile(null);
+            // setEmail(""); // якщо захочеш – можеш теж очищати
 
             setIsSubmitted(true);
         } catch (err) {
@@ -218,7 +214,6 @@ export default function WorkshopForm() {
             setIsSubmitting(false);
         }
     };
-
 
     if (isSubmitted) {
         return (
@@ -313,12 +308,13 @@ export default function WorkshopForm() {
                                                     onClick={() =>
                                                         !disabled && toggleSlot(originalIndex, slot)
                                                     }
-                                                    className={`px-4 py-2 w-fit rounded-full font-medium transition-all ${isBooked
-                                                        ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-                                                        : isSelected(originalIndex, slot)
-                                                            ? "bg-yellow-500 text-black outline-8 -outline-offset-8 outline-yellow-500"
-                                                            : "bg-black text-white hover:bg-yellow-400/20"
-                                                        } outline-2 -outline-offset-2 outline-yellow-500`}
+                                                    className={`px-4 py-2 w-fit rounded-full font-medium transition-all ${
+                                                        isBooked
+                                                            ? "bg-gray-600 text-gray-300 cursor-not-allowed"
+                                                            : isSelected(originalIndex, slot)
+                                                                ? "bg-yellow-500 text-black outline-8 -outline-offset-8 outline-yellow-500"
+                                                                : "bg-black text-white hover:bg-yellow-400/20"
+                                                    } outline-2 -outline-offset-2 outline-yellow-500`}
                                                 >
                                                     {slot}
                                                 </button>
@@ -333,14 +329,18 @@ export default function WorkshopForm() {
                             There are no events available for reservation.
                         </p>
                     )}
-                    {/* ну по хорошому ми мали б розділяти тут все на компоненти але як є вже */}
+
+                    {/* File Upload */}
                     <div className="py-5">
                         <FileUpload
                             onClearSuccess={() => void 0}
                             onFileSelect={(file) => {
-                                setCvFile(file); // Отримуємо файл з компонента
-                            }} label="placeholder" />
+                                setCvFile(file);
+                            }}
+                            label="Ur CV"
+                        />
                     </div>
+
                     {/* Submit Button */}
                     <div className="flex justify-center mt-12">
                         <button
