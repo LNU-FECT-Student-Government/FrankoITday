@@ -335,7 +335,11 @@ export default function WorkshopForm() {
                     )}
                     {/* ну по хорошому ми мали б розділяти тут все на компоненти але як є вже */}
                     <div className="py-5">
-                        <FileUpload onFileSelect={ } label="placeholder" />
+                        <FileUpload
+                            onClearSuccess={() => void 0}
+                            onFileSelect={(file) => {
+                                setCvFile(file); // Отримуємо файл з компонента
+                            }} label="placeholder" />
                     </div>
                     {/* Submit Button */}
                     <div className="flex justify-center mt-12">
