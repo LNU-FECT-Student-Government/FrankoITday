@@ -1,34 +1,35 @@
 [
   {
-    "time": "10:00",
-    "content": ["Відкриття", "null"]
-  },
-  {
     "time": "10:30-11:30",
-    "content": ["SoftServe", "null"]
+    "content": [
+      "N-iX Lecture",
+      "How IT careers work? Developer, QA, PM, BA, Designer, DevOps"
+    ]
   },
   {
     "time": "11:40-12:40",
-    "content": ["AppexSoft", "null"]
+    "content": ["Leobit Lecture", "How to create an application in 2025"]
   },
   {
     "time": "12:50-13:50",
-    "content": ["N-IX", "null"]
+    "content": ["Leobit Lecture", "How to create an application in 2025"]
   },
   {
     "time": "14:00-15:00",
-    "content": ["Обід", "null"]
+    "content": ["Coffee Break", "Time to refuel"]
   },
   {
     "time": "15:00-16:30",
-    "content": ["KeenEthics", "null"]
+    "content": [
+      "Infineon Lecture", 
+      "AI/ML Roles, Synthetic Data in SLMs, and Impedance as the Key to Future Diagnostics"
+    ]
   },
   {
-    "time": "16:40-18:10",
-    "content": ["SoftServe", "null"]
-  },
-  {
-    "time": "18:10-кінець",
-    "content": ["Insiders", "null"]
+    "time": "16:40-17:40",
+    "content": [
+      "EPAM Lecture",
+      "IT career without chaos: how to choose direction and move to your goals"
+    ]
   }
 ]

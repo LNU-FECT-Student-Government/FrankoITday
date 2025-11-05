@@ -5,7 +5,7 @@ import TikTokIcon from "./svg/TikTokIcon";
 function Footer() {
     return (
         <footer>
-            <div className="flex flex-col py-10">
+            <div className="flex flex-col pt-10 pb-3">
                 <div className="h-0.25 xl:h-0.5 w-[80%] mx-auto bg-yellow-500 -mb-0"></div>
                 <div className="flex flex-row gap-4 mx-auto pt-8">
                     <a
@@ -33,6 +33,14 @@ function Footer() {
                         <TelegramIcon className="w-10 mx-1 my-2" />
                     </a>
                 </div>
+            </div>
+            <div className="text-gray-500 pb-8 text-sm pl-15">
+                <p>
+                    responsible for letting you see - Xyc
+                </p>
+                <p>
+                    responsible for making it work - steiveof
+                </p>
             </div>
         </footer>
     );

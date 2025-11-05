@@ -5,27 +5,28 @@ import Footer from "../common/Footer.tsx";
 const SectionBar = lazy(() => import('../common/SectionBar.tsx'))
 import About from "../Home/About.tsx";
 import Sponsors from "../Home/Sponsors.tsx";
-
-{/* 
-    const Schedule = lazy(() => import('../Home/Schedule.tsx'))
-    */}
+import Maps from "../Home/Maps.tsx";
+const Schedule = lazy(() => import('../Home/Schedule.tsx'))
 
 function Home() {
     return (
-        <>
-            <SectionBar title="Home" />
-            <Hero />
-            <SectionBar title="About" />
-            <About />
-            <Sponsors />
-            <SectionBar title="Schedule" />
-            <h1 className="text-4xl text-center mx-auto text-gray-300 italic mb-10">Schedule will be announced super soon</h1>
-            {/*
-            <Schedule />
+        < >
+            <div className="overflow-x-hidden">
+                <SectionBar title="Home" />
+                <Hero />
+                <SectionBar title="About" />
+                <About />
+                <Sponsors />
+                <SectionBar title="Schedule" />
+                <Schedule />
+                <SectionBar title="Maps" />
+                <Maps />
+                {/*
             <SectionBar title="Speakers" />
             <Speakers />
             */}
-            <Footer />
+                <Footer />
+            </div >
         </>
     );
 }

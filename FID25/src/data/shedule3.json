@@ -11,8 +11,8 @@
   },
   {
     "time": "15:00-17:00",
-    "content": ["Softserv Interview", ""],
+    "content": ["SoftServe Interview", ""],
     "reservation": true,
-    "slotMinutes": 15
+    "slotMinutes": 20
   }
 ]

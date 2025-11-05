@@ -41,30 +41,31 @@ function Schedule() {
                     onClick={() => handleFlowChange(1)}
                     disabled={activeFlow === 1}
                     className={`px-6 py-2 border-2 border-yellow-500 font-semibold transition-all ${activeFlow === 1
-                        ? 'bg-yellow-500 text-black cursor-default'
-                        : 'bg-black text-gray-300 hover:bg-yellow-950'
+                        ? "bg-yellow-500 text-black cursor-default"
+                        : "bg-black text-gray-300 hover:bg-yellow-950"
                         }`}
                 >
-                    1 Потік
+                    1 stream
                 </button>
                 <button
                     onClick={() => handleFlowChange(2)}
                     disabled={activeFlow === 2}
                     className={`px-6 py-2 border-2 border-yellow-500 font-semibold transition-all ${activeFlow === 2
-                        ? 'bg-yellow-500 text-black cursor-default'
-                        : 'bg-black text-gray-300 hover:bg-yellow-950'
+                        ? "bg-yellow-500 text-black cursor-default"
+                        : "bg-black text-gray-300 hover:bg-yellow-950"
                         }`}
                 >
-                    2 Потік
+                    2 stream
                 </button>
             </div>
 
-
-            <div className="w-full relative">
+            <div className="w-full relative overflow-x-clip">
                 <div
-                    className="flex transition-transform duration-500 ease-in-out"
+                    className={`flex transition-transform duration-500 ease-in-out ${isAnimating ? "pointer-events-none" : ""
+                        }`}
                     style={{
-                        transform: `translateX(${activeFlow === 1 ? '0%' : '-100%'})`
+                        transform: `translateX(${activeFlow === 1 ? "0%" : "-100%"
+                            })`
                     }}
                 >
 
@@ -77,7 +78,6 @@ function Schedule() {
                                         <RegularCell
                                             title={row.content[0]}
                                             description={row.content[1]}
-                                            time={row.time}
                                         />
                                     </tr>
                                 ))}
@@ -94,8 +94,7 @@ function Schedule() {
                                         <TimeCell time={row.time} />
                                         <RegularCell
                                             title={row.content[0]}
-                                            description={row.content[1]}
-                                            time={row.time}
+                                            description={row.content[0]}
                                         />
                                     </tr>
                                 ))}

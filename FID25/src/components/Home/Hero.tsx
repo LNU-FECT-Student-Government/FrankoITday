@@ -3,9 +3,7 @@ import ArrowsLong from "../common/svg/ArrowsLong.tsx";
 import ArrowsShort from "../common/svg/ArrowsShort.tsx";
 import { useEffect, useState } from "react";
 import FromButton from "../common/FromButton.tsx";
-{/* 
 import WorkshopButton from "../common/WorkshopButton.tsx";
- */}
 function Hero() {
     const [viewport, setViewport] = useState<[number, number]>([window.innerWidth, window.innerHeight]);
 
@@ -50,10 +48,9 @@ function Hero() {
                                 IT<br />
                                 DAY<br />
                             </h1>
-                            <div className="flex justify-around gap-4 items-center md:ml-8 my-16 mb-21 sm:my-6 sm:mb-6  sm:max-w-75 lg:max-w-150">
-
+                            <div className="flex flex-col *:min-w-70 sm:*:min-w-auto sm:flex-row justify-center gap-4 items-center md:ml-8 my-16 mb-21 sm:my-6 sm:mb-6 sm:max-w-75 lg:max-w-150">
                                 <FromButton />
-                                {/*<WorkshopButton />*/}
+                                <WorkshopButton />
 
                                 <button
                                     onClick={handleScrollToSchedule}
