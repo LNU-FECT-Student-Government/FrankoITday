@@ -94,7 +94,7 @@ function Schedule() {
                                         <TimeCell time={row.time} />
                                         <RegularCell
                                             title={row.content[0]}
-                                            description={row.content[0]}
+                                            description={row.content[1]}
                                         />
                                     </tr>
                                 ))}
