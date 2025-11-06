@@ -9,8 +9,15 @@
   {
     "time": "11:40-13:20",
     "content": [
-      "Keen.Ethics Workshop",
+      "KeenEthics Workshop",
       "Tech Interview: Trainee Fullstack (React + Node.JS)"
+    ]
+  },
+    {
+    "time": "16:40-18:10",
+    "content": [
+      "Appexoft Workshop",
+      "AI Evolution: From Chatbots to Agents"
     ]
   },
   {
@@ -31,8 +38,8 @@
   {
     "time": "16:40-18:10",
     "content": [
-      "Appexoft Workshop & Lecture",
-      "AI Evolution: From Chatbots to Agents & IT Growth"
+      "Appexoft Lecture",
+      "IT Directions: How to Choose Your Path of Growth"
     ]
   }
 ]
