@@ -72,7 +72,7 @@ function Maps() {
                 : inactiveButtonClass
                 }`}
             >
-              {floor} поверх
+              {floor} Floor
             </button>
           ))}
         </div>
