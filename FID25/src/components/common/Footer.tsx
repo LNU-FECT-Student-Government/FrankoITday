@@ -39,7 +39,7 @@ function Footer() {
                     responsible for letting you see - Xyc
                 </p>
                 <p>
-                    responsible for making it work - steiveof
+                    responsible for making it work - stevieof
                 </p>
             </div>
         </footer>
